@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "V=$(cat apk/VERSION)" >> $GITHUB_ENV
+      - run: cp apk/AYLEON-Cerca-prueba-$V.apk apk/AYLEON-Cerca.apk
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.V }}
@@ -21,3 +22,4 @@ jobs:
           files: |
             apk/AYLEON-Cerca-prueba-${{ env.V }}.apk
             apk/AYLEON-Cerca-${{ env.V }}.apk
+            apk/AYLEON-Cerca.apk
