@@ -1,0 +1,23 @@
+name: Publicar APK
+on:
+  push:
+    branches: [main]
+    paths: ['apk/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "V=$(cat apk/VERSION)" >> $GITHUB_ENV
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.V }}
+          name: AYLEON Cerca v${{ env.V }}
+          make_latest: true
+          body: App AYLEON Cerca. Instala AYLEON-Cerca-prueba (la que funciona en tu móvil).
+          files: |
+            apk/AYLEON-Cerca-prueba-${{ env.V }}.apk
+            apk/AYLEON-Cerca-${{ env.V }}.apk
